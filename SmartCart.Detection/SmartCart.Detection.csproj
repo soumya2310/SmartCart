@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!--
+      FIX NETSDK1139 / NU1012 / NU1201:
+      'net8.0-linux' is not a valid .NET platform TFM — this caused the project
+      to be incompatible with all net8.0 references (SmartCart.Tests, etc.).
+      Linux/ARM64 targeting is handled at PUBLISH time via RuntimeIdentifier
+      (e.g.  dotnet publish -r linux-arm64 -p:SelfContained=true).
+    -->
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>SmartCart.Detection</AssemblyName>
+    <RootNamespace>SmartCart.Detection</RootNamespace>
+    <Authors>soumya2310</Authors>
+    <Company>Biju Patnaik University of Technology</Company>
+    <Copyright>Copyright © 2025 Soumya Chattopadhyay</Copyright>
+    <Description>AI Shopping Cart — YOLOv8 ONNX product detection with Intel RealSense D455 depth fusion on NVIDIA Jetson AGX Orin</Description>
+  </PropertyGroup>
+
+  <!-- Jetson AGX Orin publish profile: dotnet publish -r linux-arm64 -p:SelfContained=true -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ONNX Runtime with CUDA execution provider (NVIDIA Jetson / Linux ARM64) -->
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.Gpu"              Version="1.18.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.*"   />
+    <!--
+      RealSense C# bindings: use the community LibRealSense.Net wrapper or
+      call librealsense2 via P/Invoke with the declarations in RealSenseInterop.cs
+    -->
+  </ItemGroup>
+</Project>

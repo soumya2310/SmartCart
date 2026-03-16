@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SmartCart.Telemetry</AssemblyName>
+    <RootNamespace>SmartCart.Telemetry</RootNamespace>
+    <Authors>soumya2310</Authors>
+    <Company>Biju Patnaik University of Technology</Company>
+    <Copyright>Copyright © 2025 Soumya Chattopadhyay</Copyright>
+    <Description>AI Shopping Cart — Azure IoT Hub telemetry publisher using IHostedService and AMQP/TLS transport</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Devices.Client"              Version="1.42.*" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"   Version="8.*"   />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"   Version="8.*"   />
+    <PackageReference Include="Microsoft.Extensions.Options"                Version="8.*"   />
+  </ItemGroup>
+</Project>

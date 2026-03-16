@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!--
+      FIX (cascades from Detection TFM fix):
+      SmartCart.Detection now targets net8.0 (was net8.0-linux), so all four
+      ProjectReferences below resolve without NU1201 / targeting errors.
+    -->
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>SmartCart.Tests</AssemblyName>
+    <RootNamespace>SmartCart.Tests</RootNamespace>
+    <Authors>soumya2310</Authors>
+    <Company>Biju Patnaik University of Technology</Company>
+    <Copyright>Copyright © 2025 Soumya Chattopadhyay</Copyright>
+    <Description>AI Shopping Cart — xUnit test suite for Navigation, Detection, Lambda, and Telemetry services</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"      Version="17.*"  />
+    <PackageReference Include="xunit"                       Version="2.9.*" />
+    <PackageReference Include="xunit.runner.visualstudio"   Version="2.8.*" />
+    <!--
+      FIX: SmartCartTests.cs uses Moq (Mock<T>, .Setup(), .ReturnsAsync()) —
+      the original csproj referenced NSubstitute which does not provide these
+      APIs, causing CS0246 / CS1061 errors at every mock call site.
+      Replaced NSubstitute with Moq.
+    -->
+    <PackageReference Include="Moq"                         Version="4.20.*"/>
+    <PackageReference Include="FluentAssertions"            Version="6.12.*"/>
+    <PackageReference Include="AWSSDK.DynamoDBv2"           Version="3.7.*" />
+    <PackageReference Include="Amazon.Lambda.Core"          Version="2.*"   />
+    <PackageReference Include="Amazon.Lambda.DynamoDBEvents" Version="3.*"  />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCart.Navigation\SmartCart.Navigation.csproj" />
+    <ProjectReference Include="..\SmartCart.Detection\SmartCart.Detection.csproj"   />
+    <ProjectReference Include="..\SmartCart.Lambda\SmartCart.Lambda.csproj"         />
+    <ProjectReference Include="..\SmartCart.Telemetry\SmartCart.Telemetry.csproj"   />
+  </ItemGroup>
+</Project>
